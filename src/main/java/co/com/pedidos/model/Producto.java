@@ -3,8 +3,10 @@ package co.com.pedidos.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "producto")
@@ -24,9 +26,6 @@ public class Producto {
 
     @Column(name = "descripcion")
     public String descripcion;
-
-    @OneToMany(mappedBy = "producto", cascade = {CascadeType.ALL})
-    private List<Pedido> pedidos;
 
     public Producto() {
 

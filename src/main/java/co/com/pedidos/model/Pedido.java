@@ -33,7 +33,7 @@ public class Pedido implements Serializable {
     private String estado;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_producto")
+    @JoinColumn(name = "id_producto_pedido")
     private Producto producto;
 
 }
