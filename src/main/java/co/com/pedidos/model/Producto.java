@@ -13,7 +13,7 @@ import java.util.List;
 public class Producto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long idProducto;
 
     @Column(name = "nombre_producto")
@@ -32,7 +32,8 @@ public class Producto {
 
     }
 
-    public Producto(String nombreProducto, String referencia, String descripcion) {
+    public Producto(Long idProducto, String nombreProducto, String referencia, String descripcion) {
+        this.idProducto = idProducto;
         this.nombreProducto = nombreProducto;
         this.referencia = referencia;
         this.descripcion = descripcion;

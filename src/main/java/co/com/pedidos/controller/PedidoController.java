@@ -1,9 +1,12 @@
 package co.com.pedidos.controller;
 
+import co.com.pedidos.dto.MensajeOut;
 import co.com.pedidos.exception.ResourceNotFoundException;
 import co.com.pedidos.model.Pedido;
 import co.com.pedidos.repository.PedidoRepository;
+import co.com.pedidos.services.PedidoServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,10 @@ public class PedidoController {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+
+    @Autowired
+    private PedidoServices pedidoServices;
+
 
     @GetMapping("/pedidos")
     public List<Pedido> getInstructors() {
@@ -38,6 +45,14 @@ public class PedidoController {
     public Pedido crearPedido(@Valid @RequestBody Pedido pedido) {
         return pedidoRepository.save(pedido);
     }
+
+    @PostMapping("/crearpedidos")
+    public ResponseEntity<MensajeOut> crearPedidoMensajeOut(@Valid @RequestBody Pedido pedido) {
+        MensajeOut mensajeOut = pedidoServices.crearPedido(pedido);
+        return new ResponseEntity<>(mensajeOut, HttpStatus.OK);
+    }
+
+
 
     @PutMapping("/pedidos/{id}")
     public ResponseEntity<Pedido> actualizaPedido(
