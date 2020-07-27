@@ -1,8 +1,13 @@
 package co.com.pedidos.controller;
 
-import co.com.pedidos.model.Producto;
+import co.com.pedidos.dto.MensajeOut;
 import co.com.pedidos.exception.ResourceNotFoundException;
+
+import co.com.pedidos.model.Producto;
 import co.com.pedidos.repository.ProductoRepository;
+import co.com.pedidos.services.ProductoServices;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +22,9 @@ import java.util.Map;
 public class ProductoController {
 
     private final ProductoRepository productoRepository;
+
+    @Autowired
+    private ProductoServices productoServices;
 
     public ProductoController(ProductoRepository productoRepository) {
         this.productoRepository = productoRepository;
@@ -39,6 +47,16 @@ public class ProductoController {
     @PostMapping("/producto")
     public Producto createProducto(@Valid @RequestBody Producto producto) {
         return productoRepository.save(producto);
+    }
+
+    /**
+     * @param producto
+     * @return
+     */
+    @PostMapping("/crearproducto")
+    public ResponseEntity<MensajeOut> crearProductoMensajeOut(@Valid @RequestBody Producto producto) {
+        MensajeOut mensajeOut = productoServices.crearproducto(producto);
+        return new ResponseEntity<>(mensajeOut, HttpStatus.OK);
     }
 
     @PutMapping("/producto/{id}")
