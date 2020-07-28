@@ -25,7 +25,7 @@ public class Pedido implements Serializable {
     @Column(name = "cantidad")
     private Long cantidad;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "fecha_orden")
     private Date fechaOrden;
 
