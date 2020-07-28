@@ -28,12 +28,11 @@ public class PedidoServices {
     public MensajeOut crearPedido(Pedido pedido) {
 
         MensajeOut mensajeOut = new MensajeOut();
-        List<Producto> listaproducto = productoRepository.findByIdProducto(pedido.getProducto().getIdProducto());
-        if (listaproducto == null) {
-            mensajeOut.setMensaje(Constantes.MSJ_PRODUCTO);
-            return mensajeOut;
-        } else if (listaproducto.size() > 0) {
-            mensajeOut.setMensaje(Constantes.MSJ_PRODUCTO_YA_EXISTE);
+        mensajeOut.setExitoso(true);
+        List<Producto> listaproducto = productoRepository.findByIdProducto(pedido.getIdProducto());
+        if (listaproducto.size() <= 0) {
+            mensajeOut.setMensaje(Constantes.MSJ_PRODUCTO_NO_EXISTE);
+            mensajeOut.setExitoso(false);
             return mensajeOut;
         }
 
@@ -42,12 +41,9 @@ public class PedidoServices {
         crearPedido.setCantidad(pedido.getCantidad());
         crearPedido.setEstado(pedido.getEstado());
         crearPedido.setFechaOrden(pedido.getFechaOrden());
-        Producto producto = new Producto();
-        producto.setIdProducto(pedido.getProducto().getIdProducto());
-        producto.setNombreProducto(pedido.getProducto().getNombreProducto());
-        crearPedido.setProducto(producto);
+        crearPedido.setIdProducto(pedido.getIdProducto());
         pedidoRepository.save(crearPedido);
-        mensajeOut.setMensaje(Constantes.MSJ_PRODUCTO_GUARDAR);
+        mensajeOut.setMensaje(Constantes.MSJ_PEDIDO_GUARDAR);
         return mensajeOut;
     }
 }

@@ -28,7 +28,6 @@ public class Producto {
     public String descripcion;
 
     public Producto() {
-
     }
 
     public Producto(Long idProducto, String nombreProducto, String referencia, String descripcion) {

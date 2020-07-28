@@ -7,7 +7,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "pedido")
@@ -32,8 +31,16 @@ public class Pedido implements Serializable {
     @Column(name = "estado")
     private String estado;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_producto_pedido")
-    private Producto producto;
+    public Long idProducto;
+
+    public Pedido() {
+    }
+
+    public Pedido(Long cantidad, Date fechaOrden, String estado, Long idProducto) {
+        this.cantidad = cantidad;
+        this.fechaOrden = fechaOrden;
+        this.estado = estado;
+        this.idProducto = idProducto;
+    }
 
 }
